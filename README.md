@@ -14,5 +14,8 @@ Buit an end-to-end MLOps pipeline with:
 ## Dataset
 UCI Bank Marketing dataset
 
-
-
+## Current Progress
+- Data inspection completed
+- Train/test split completed
+- Baseline Logistic Regression model trained
+- Evaluation metrics and confusion matrix saved
