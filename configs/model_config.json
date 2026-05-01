@@ -1,0 +1,26 @@
+{
+    "model_name": "logistic_regression",
+    "test_size": 0.2,
+    "random_state":42,
+    "target_column": "y",
+    "categorical_features": [
+        "job",
+        "marital",
+        "education",
+        "default",
+        "housing",
+        "loan",
+        "contact",
+        "month",
+        "poutcome"
+    ],
+    "numerical_features":[
+        "age",
+        "balance",
+        "day",
+        "duration",
+        "campaign",
+        "pdays",
+        "previous"
+    ]
+}

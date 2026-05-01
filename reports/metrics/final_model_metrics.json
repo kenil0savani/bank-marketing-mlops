@@ -1,0 +1,9 @@
+{
+    "model_name": "logistic_regression",
+    "accuracy": 0.8457,
+    "precision": 0.4182,
+    "recall": 0.8147,
+    "f1_score": 0.5527,
+    "roc_auc": 0.9079,
+    "model_path": "models\\final_model.joblib"
+}

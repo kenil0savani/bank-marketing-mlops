@@ -19,3 +19,24 @@ UCI Bank Marketing dataset
 - Train/test split completed
 - Baseline Logistic Regression model trained
 - Evaluation metrics and confusion matrix saved
+
+## Final Model Choice
+The current deployment candidate is logistic regression.
+
+### Why selected
+- better F1-score on the positive class ('yes')
+- Better recall for identifying potential subscribers
+- Simpler and easier to explain than the alternative baseline
+
+## API Endpoints
+
+### Get /
+return a simple message that the API is running
+
+### Get/ health
+Return API health status and confirms wheter thr model is loaded.
+
+### POST/ predict
+Accepts customer information and returns:
+- predicted class
+- probability of subscription ('yes')
