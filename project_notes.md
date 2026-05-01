@@ -1,5 +1,5 @@
-# Project Notes
 
+<<<<<<< HEAD
 ## Project Name
 Bank Marketing MLOps
 
@@ -200,3 +200,5 @@ I created prediction API
 
 ### Main deployment artifact
 - models/final_model.joblib
+=======
+>>>>>>> 5424a993abe16565f0dfb6c6dc8fa50af4e1bb6a

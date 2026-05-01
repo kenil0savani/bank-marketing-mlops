@@ -2,8 +2,7 @@
 
 This project predicts whether a bank customer will subscribe to a term deposit.
 
-#Goal
-Buit an end-to-end MLOps pipeline with:
+#Goal Buit an end-to-end MLOps pipeline with:
 - data preparation
 - model training
 - experiment tracking
