@@ -200,5 +200,26 @@ I created prediction API
 
 ### Main deployment artifact
 - models/final_model.joblib
-=======
->>>>>>> 5424a993abe16565f0dfb6c6dc8fa50af4e1bb6a
+
+
+## Step 10 - API testing with pytest
+- automated test for the API
+
+### File created
+- test/test_api.py
+
+### What I tested
+- GET /
+- GET/ health
+- POST /predict
+
+### What I learned
+- pytest can automatically test my API
+- TestClient helps test FastAPI routes
+- Good projects should check themselves automatically
+
+### Results
+- Number of tests passed:
+
+
+

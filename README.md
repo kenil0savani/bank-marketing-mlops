@@ -39,3 +39,9 @@ Return API health status and confirms wheter thr model is loaded.
 Accepts customer information and returns:
 - predicted class
 - probability of subscription ('yes')
+
+## Testing 
+
+Run testing with : 
+```bash
+python -m pytest -v 
