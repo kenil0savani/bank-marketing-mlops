@@ -1,0 +1,8 @@
+.venv
+__pycache__
+.pytest_catch
+.git
+.gitignore
+notebooks
+reports
+project_notes.md

@@ -221,5 +221,22 @@ I created prediction API
 ### Results
 - Number of tests passed:
 
+## Step 11 -Docker
 
+I containerized my FastAPI project.
+
+### Files created
+- Dockerfile
+- .dockerignore
+
+### What I learned
+- Docker can package te API model together
+- Te same container can run on different machines
+- Dockerfile describes how to build the image
+- docker build creates an image
+- docker run starts a container
+
+### commands used
+- docker build -t bank-marketing-mlops .
+- docker run -p 8000:8000 bank-marketing-mlops
 

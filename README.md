@@ -45,3 +45,12 @@ Accepts customer information and returns:
 Run testing with : 
 ```bash
 python -m pytest -v 
+```
+
+## Run with Docker
+
+Build the image:
+
+``` bash
+docker build -t bank.marketing-mlops .
+```
