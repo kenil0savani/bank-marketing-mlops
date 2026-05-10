@@ -258,3 +258,23 @@ I added a CI workflow with Github Actions
 - GitHub Actions can test my project automatically
 - CI hepls check whether the project still works after changes
 - A clean repository should include automated testing
+
+## Step 13 - MLflow tracking
+
+Today I added MLflow to track my training run.
+
+### File created
+- src/pipelines/train_with_mlflow.py
+
+### What I logged
+- model parameters
+- evaluation metrics
+- config file
+- metrics file
+- classification report
+- trained model
+
+### What I learned
+- MLflow can track experiments
+- A run stores params, metrics, artifacts, and model
+- The MLflow UI helps compare training runs

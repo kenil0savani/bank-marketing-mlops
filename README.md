@@ -64,3 +64,11 @@ the workflow:
 - runs on pull requests to 'main'
 - installs dependencies
 - runs API tests with pytest
+
+## MLflow Experiment Tracking
+
+Install MLflow:
+
+```bash
+pip install mlflow
+```
