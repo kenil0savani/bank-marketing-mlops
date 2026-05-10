@@ -18,7 +18,7 @@ from sklearn.metrics import (
 
 # Paths
 TEST_PATH = Path("data/processed/test.csv")
-MODEL_PATH = Path("models/logistic_regression_pipeline.joblib")
+MODEL_PATH = Path("models/final_model.joblib")
 
 REPORTS_DIR = Path("reports")
 METRICS_DIR = REPORTS_DIR / "metrics"

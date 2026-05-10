@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/lenovo/bank-marketing-mlops/mlruns/109155868779649254/models/m-6c4b8524d4bf4aa3942b04b838c7cde3/artifacts
+creation_timestamp: 1778415998338
+experiment_id: '109155868779649254'
+last_updated_timestamp: 1778416017800
+model_id: m-6c4b8524d4bf4aa3942b04b838c7cde3
+model_type: null
+name: model
+source_run_id: c0290f0a1710435caa26abe300e11189
+status: 2
+status_message: null

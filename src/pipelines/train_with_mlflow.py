@@ -2,7 +2,7 @@ from pathlib import Path
 import json
 import joblib
 import pandas as pd
-import mlflows
+import mlflow
 import mlflow.sklearn
 
 from sklearn.pipeline import Pipeline
@@ -21,7 +21,7 @@ from sklearn.metrics import (
 
 # Paths
 TRAIN_PATH = Path("data/processed/train.csv")
-TEST_PATH = Path("model/preprocessed/test.csv")
+TEST_PATH = Path("data/processed/test.csv")
 CONFIG_PATH = Path("configs/model_config.json")
 
 MODELS_DIR = Path("models")
@@ -36,6 +36,7 @@ MODELS_DIR.mkdir(parents=True, exist_ok=True)
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
 
 # MLflow setup
+mlflow.set_tracking_uri("file:./mlruns")
 mlflow.set_experiment("bank_marketing_mlops")
 
 # Load config

@@ -278,3 +278,28 @@ Today I added MLflow to track my training run.
 - MLflow can track experiments
 - A run stores params, metrics, artifacts, and model
 - The MLflow UI helps compare training runs
+
+## Step 14 - DVC
+
+Today I added DVC to version data and pipeline outputs.
+
+### What I did
+- initialized DVC
+- tracked the raw dataset with dvc add
+- created a local DVC remote
+- created DVC pipeline stages
+- ran dvc repro
+- ran dvc push
+
+### Main new files
+- .dvc/
+- dvc.yaml
+- dvc.lock
+- data/raw/bank-full.csv.dvc
+
+### What I learned
+- Git tracks code and DVC metadata
+- DVC tracks large data and model artifacts
+- dvc stage add creates reproducible pipeline stages
+- dvc repro reruns the pipeline when dependencies change
+- dvc push stores data in remote storage

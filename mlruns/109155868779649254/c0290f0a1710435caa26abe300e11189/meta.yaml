@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/lenovo/bank-marketing-mlops/mlruns/109155868779649254/c0290f0a1710435caa26abe300e11189/artifacts
+end_time: 1778416017835
+entry_point_name: ''
+experiment_id: '109155868779649254'
+lifecycle_stage: active
+run_id: c0290f0a1710435caa26abe300e11189
+run_name: logistic_regression_baseline
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1778415996230
+status: 3
+tags: []
+user_id: lenovo
