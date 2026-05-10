@@ -1,0 +1,98 @@
+schema: '2.0'
+stages:
+  inspect:
+    cmd: python src/data/inspect_data.py
+    deps:
+    - path: data/raw/bank-full.csv
+      hash: md5
+      md5: e6b0ca77f3f200ec5428e04dd104da53
+      size: 4610348
+    - path: src/data/inspect_data.py
+      hash: md5
+      md5: c8b8e7b4f79f0eee422c3efc4509ab3c
+      size: 1146
+    outs:
+    - path: data/processed/bank_stage1.csv
+      hash: md5
+      md5: 92fffe6312a56e112a76bf00eab7f9e7
+      size: 3751306
+  split:
+    cmd: python src/data/split_data.py
+    deps:
+    - path: data/processed/bank_stage1.csv
+      hash: md5
+      md5: 92fffe6312a56e112a76bf00eab7f9e7
+      size: 3751306
+    - path: src/data/split_data.py
+      hash: md5
+      md5: ed07c9370fab3499b40dc2bb910af651
+      size: 1592
+    outs:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 5abbdc5bda77ccbe07f4e25195a5babb
+      size: 750498
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 17d6cc7f7ef5e743d2bfe65c82868e85
+      size: 3000926
+  train:
+    cmd: python src/pipelines/train_final_model.py
+    deps:
+    - path: configs/model_config.json
+      hash: md5
+      md5: b619db4488423d123fdc0c4ea5324601
+      size: 499
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 5abbdc5bda77ccbe07f4e25195a5babb
+      size: 750498
+    - path: data/processed/train.csv
+      hash: md5
+      md5: 17d6cc7f7ef5e743d2bfe65c82868e85
+      size: 3000926
+    - path: src/pipelines/train_final_model.py
+      hash: md5
+      md5: 580ca4ba1cdb581d5addfd24299803d6
+      size: 4204
+    outs:
+    - path: models/final_model.joblib
+      hash: md5
+      md5: 427522259968bb2c94055741f2f15e18
+      size: 7066
+    - path: reports/metrics/final_classification_report.txt
+      hash: md5
+      md5: a976c750bae332a734b93cc1e112abc4
+      size: 334
+    - path: reports/metrics/final_model_metrics.json
+      hash: md5
+      md5: 02b55352378e9805ebbda859f9ab3f1c
+      size: 217
+  evaluate:
+    cmd: python src/models/evaluate_model.py
+    deps:
+    - path: data/processed/test.csv
+      hash: md5
+      md5: 5abbdc5bda77ccbe07f4e25195a5babb
+      size: 750498
+    - path: models/final_model.joblib
+      hash: md5
+      md5: 427522259968bb2c94055741f2f15e18
+      size: 7066
+    - path: src/models/evaluate_model.py
+      hash: md5
+      md5: e757ac198ca07f2d4beafeb85c3475c1
+      size: 3020
+    outs:
+    - path: reports/figures/confusion_matrix.png
+      hash: md5
+      md5: 03032a4835538d444e08e3840a56387a
+      size: 78998
+    - path: reports/metrics/classification_report.txt
+      hash: md5
+      md5: a976c750bae332a734b93cc1e112abc4
+      size: 334
+    - path: reports/metrics/metrics.json
+      hash: md5
+      md5: 37c0d90d545b0fcaa7d5b9732be5768a
+      size: 126

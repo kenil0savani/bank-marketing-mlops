@@ -1,0 +1,37 @@
+stages:
+  inspect:
+    cmd: python src/data/inspect_data.py
+    deps:
+    - data/raw/bank-full.csv
+    - src/data/inspect_data.py
+    outs:
+    - data/processed/bank_stage1.csv
+  split:
+    cmd: python src/data/split_data.py
+    deps:
+    - data/processed/bank_stage1.csv
+    - src/data/split_data.py
+    outs:
+    - data/processed/test.csv
+    - data/processed/train.csv
+  train:
+    cmd: python src/pipelines/train_final_model.py
+    deps:
+    - configs/model_config.json
+    - data/processed/test.csv
+    - data/processed/train.csv
+    - src/pipelines/train_final_model.py
+    outs:
+    - models/final_model.joblib
+    - reports/metrics/final_classification_report.txt
+    - reports/metrics/final_model_metrics.json
+  evaluate:
+    cmd: python src/models/evaluate_model.py
+    deps:
+    - data/processed/test.csv
+    - models/final_model.joblib
+    - src/models/evaluate_model.py
+    outs:
+    - reports/figures/confusion_matrix.png
+    - reports/metrics/classification_report.txt
+    - reports/metrics/metrics.json
