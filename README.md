@@ -54,3 +54,13 @@ Build the image:
 ``` bash
 docker build -t bank.marketing-mlops .
 ```
+
+## Continuous Integration
+
+This project uses Github Actions for CI.
+
+the workflow:
+- run on push to 'main'
+- runs on pull requests to 'main'
+- installs dependencies
+- runs API tests with pytest

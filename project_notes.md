@@ -240,3 +240,21 @@ I containerized my FastAPI project.
 - docker build -t bank-marketing-mlops .
 - docker run -p 8000:8000 bank-marketing-mlops
 
+## Step 12 - Github Actions
+
+I added a CI workflow with Github Actions
+
+### File created
+- .github/workflows/ci.yml
+
+### What it does
+- runs on push to main
+- runs on pull request to main
+- installs python
+- installs dependencies
+- runs pytest
+
+### What I learned
+- GitHub Actions can test my project automatically
+- CI hepls check whether the project still works after changes
+- A clean repository should include automated testing
