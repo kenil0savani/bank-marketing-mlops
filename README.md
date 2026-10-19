@@ -52,7 +52,7 @@ python -m pytest -v
 Build the image:
 
 ``` bash
-docker build -t bank.marketing-mlops .
+docker build -t bank_marketing-mlops .
 ```
 
 ## Continuous Integration
