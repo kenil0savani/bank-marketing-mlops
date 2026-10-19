@@ -1,4 +1,4 @@
-# Bank Marketing MLOps Peojects
+# Bank Marketing MLOps Projects
 
 This project predicts whether a bank customer will subscribe to a term deposit.
 
