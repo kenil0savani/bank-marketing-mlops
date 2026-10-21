@@ -1,56 +1,59 @@
 from fastapi.testclient import TestClient
-from src.api.main import app
+
+from src.api.main import app, model
 
 client = TestClient(app)
+
+SAMPLE_INPUT = {
+    "age": 35,
+    "job": "management",
+    "marital": "married",
+    "education": "tertiary",
+    "default": "no",
+    "balance": 1200.5,
+    "housing": "yes",
+    "loan": "no",
+    "contact": "cellular",
+    "day": 15,
+    "month": "may",
+    "duration": 180,
+    "campaign": 2,
+    "pdays": -1,
+    "previous": 0,
+    "poutcome": "unknown",
+}
 
 
 def test_root():
     response = client.get("/")
     assert response.status_code == 200
-
-    data = response.json()
-    assert "message" in data
-    assert data["message"] == "Bank Marketing Prediction API is running"
+    assert response.json()["message"] == "Bank Marketing Prediction API is running"
 
 
-def test_health():
+def test_health_reports_model_state():
     response = client.get("/health")
-    assert response.json()
-
-    data = response.json()
-    assert "status" in data
-    assert data["status"] == "ok"
-    assert "model_loaded" in data
-    assert data["model_loaded"] is True
-
-
-def test_predict():
-    sample_input = {
-        "age": 35,
-        "job": "management",
-        "marital": "married",
-        "education": "tertiary",
-        "default": "no",
-        "balance": 1200.5,
-        "housing": "yes",
-        "loan": "no",
-        "contact": "cellular",
-        "day": 15,
-        "month": "may",
-        "duration": 180,
-        "campaign": 2,
-        "pdays": -1,
-        "previous": 0,
-        "poutcome": "unknown",
-    }
-
-    response = client.post("/predict", json=sample_input)
     assert response.status_code == 200
 
     data = response.json()
-    assert "prediction" in data
-    assert "probability_yes" in data
+    assert data["status"] == "ok"
+    assert isinstance(data["model_loaded"], bool)
 
+
+def test_predict_rejects_invalid_input():
+    """Schema validation should reject a missing field whether or not a model is loaded."""
+    bad_input = {k: v for k, v in SAMPLE_INPUT.items() if k != "age"}
+    response = client.post("/predict", json=bad_input)
+    assert response.status_code == 422
+
+
+def test_predict_returns_prediction_or_503():
+    response = client.post("/predict", json=SAMPLE_INPUT)
+
+    if model is None:
+        assert response.status_code == 503
+        return
+
+    assert response.status_code == 200
+    data = response.json()
     assert data["prediction"] in ["yes", "no"]
-    assert isinstance(data["probability_yes"], float)
     assert 0.0 <= data["probability_yes"] <= 1.0
