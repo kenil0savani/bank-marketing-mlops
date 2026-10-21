@@ -1,21 +1,20 @@
+import os
 from pathlib import Path
+
 import joblib
-from fastapi import FastAPI
-
-from pydantic import BaseModel, Field
 import pandas as pd
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field
 
-
-# App
 app = FastAPI(
     title="Bank Marketing Prediction API",
     description="Predict whether a customer will subscribe to a term deposit.",
     version="1.0.0",
 )
 
-# Load trained model once
-MODEL_PATH = Path("models/final_model.joblib")
-model = joblib.load(MODEL_PATH)
+MODEL_PATH = Path(os.getenv("MODEL_PATH", "models/final_model.joblib"))
+
+model = joblib.load(MODEL_PATH) if MODEL_PATH.exists() else None
 
 
 # Request schema
