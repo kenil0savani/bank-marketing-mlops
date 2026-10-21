@@ -8,7 +8,7 @@ The dataset is the UCI Bank Marketing dataset, which records the outcome of dire
 
 ## The problem, and why accuracy is the wrong measure
 
-Only a small fraction of contacted customers actually subscribe. That imbalance makes accuracy misleading. A model that predicts "no" for every single customer would still score around 88 percent accuracy while being completely useless, because it would never identify anyone worth calling.
+Only a small fraction of contacted customers actually subscribe. In the held-out test set, 1,058 of 9,043 customers did, about 11.7 percent. That imbalance makes accuracy misleading. A model that predicts "no" for every single customer would still score 88.3 percent accuracy while being completely useless, because it would never identify anyone worth calling.
 
 What matters commercially is **recall on the positive class**. A customer who would have subscribed but is never contacted is lost revenue. A customer who is contacted and declines costs a few minutes of an agent's time. The two errors are not equally expensive.
 
@@ -34,6 +34,25 @@ Logistic Regression also produces the better F1 on the positive class, 0.5527 ag
 Two further points in its favour. Coefficients are directly interpretable, which matters in a regulated setting where a bank may need to explain why a customer was targeted. And inference is cheap, which keeps the serving path simple.
 
 Random Forest's higher ROC-AUC, 0.9286 against 0.9079, says it ranks customers slightly better overall. If the business wanted a ranked call list rather than a yes-or-no decision, that would be worth revisiting with a tuned decision threshold.
+
+### What the errors look like
+
+![Confusion matrix](docs/confusion-matrix.png)
+
+Across 9,043 held-out customers, 1,058 actually subscribed.
+
+| | Predicted no | Predicted yes |
+|---|---|---|
+| **Actually no** | 6,786 | 1,199 |
+| **Actually yes** | 196 | 862 |
+
+The model catches 862 of the 1,058 real subscribers and misses 196. The price is 1,199 customers flagged who would not have subscribed.
+
+That trade is the whole argument in one picture. Those 1,199 false positives are wasted calls. The 196 misses are lost sales. Choosing Logistic Regression means accepting more of the cheaper mistake to avoid the expensive one.
+
+Training runs are tracked in MLflow with parameters, metrics and the fitted model.
+
+![MLflow run metrics](docs/mlflow-runs.png)
 
 ---
 
@@ -139,8 +158,12 @@ curl -X POST http://localhost:8000/predict \
 Response:
 
 ```json
-{"prediction": "no", "probability_yes": 0.1842}
+{"prediction": "no", "probability_yes": 0.1815}
 ```
+
+The same request through the interactive documentation at `/docs`:
+
+![API prediction](docs/api-predict.png)
 
 ### Run with Docker
 
@@ -168,6 +191,8 @@ python -m pytest -v
 ```
 
 Four tests cover the root and health endpoints, request schema validation, and the prediction path. The prediction test adapts to whether a model file is present, so the same suite passes locally with a trained model and on CI without one.
+
+![Test suite](docs/tests-passing.png)
 
 GitHub Actions runs the suite on every push and pull request to `main`.
 
@@ -204,7 +229,9 @@ Dockerfile            container image for the API
 
 **The DVC remote is local.** Data and model artefacts cannot be pulled from a fresh clone. A shared remote such as S3 or Azure Blob Storage would make the pipeline fully reproducible for anyone.
 
-**Single train/test split.** Results come from one hold-out split rather than cross-validation, so the figures carry more variance than they appear to.
+**Single train/test split.** Results come from one hold-out split of 9,043 records rather than cross-validation, so the figures carry more variance than they appear to.
+
+**Only the selected model is logged to MLflow.** The comparison between Logistic Regression and Random Forest is written to `reports/metrics/model_comparison.json` rather than tracked as two MLflow runs. Logging both would make the comparison visible in the MLflow UI, which is what the tool is for.
 
 ## Licence
 
