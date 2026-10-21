@@ -208,3 +208,5 @@ __marimo__/
 mlruns/
 mlflow.db
 .venv-1/
+
+project_notes.md
